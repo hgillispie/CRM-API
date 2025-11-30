@@ -10,7 +10,12 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+// Configure CORS to allow requests from all origins (can be restricted later if needed)
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // Request logging
@@ -150,6 +155,266 @@ app.get('/api/customers/at-risk', (req, res) => {
     })),
     mostAtRisk: pipelineMetrics.pipelineRisks[0]
   });
+});
+
+// ============================================
+// CHATBOT PROXY ENDPOINT
+// ============================================
+
+// Helper function to get CRM data from internal data sources
+function getCRMContext() {
+  try {
+    // Get customers data
+    const customersData = {
+      data: customers,
+      total: customers.length
+    };
+    
+    // Get top customers by deal value
+    const topCustomersData = {
+      topCustomersByDealValue: pipelineMetrics.topDealsByValue,
+      summary: "Top 5 customers ranked by current deal value"
+    };
+    
+    // Get deals closing soon
+    const closingDealsData = {
+      deals: pipelineMetrics.closestToClosing,
+      summary: "Deals ordered by probability and close date"
+    };
+    
+    // Get contacts data
+    const contactsData = {
+      data: contacts,
+      total: contacts.length
+    };
+    
+    // Get tasks data
+    const tasksData = {
+      data: tasks,
+      total: tasks.length,
+      summary: tasksSummary
+    };
+    
+    // Get pipeline data
+    const activeDeals = opportunities.filter(o => 
+      !['Closed Won', 'Closed Lost'].includes(o.stage)
+    );
+    
+    const pipelineData = {
+      summary: {
+        totalDeals: pipelineMetrics.currentQuarter.totalDeals,
+        totalValue: pipelineMetrics.currentQuarter.totalValue,
+        averageDealSize: pipelineMetrics.currentQuarter.averageDealSize,
+        weightedPipeline: pipelineMetrics.currentQuarter.weightedPipeline
+      },
+      byStage: pipelineMetrics.currentQuarter.byStage,
+      deals: pipelineMetrics.topDealsByValue,
+      closestToClosing: pipelineMetrics.closestToClosing
+    };
+    
+    return {
+      customers: customersData,
+      topCustomers: topCustomersData,
+      closingDeals: closingDealsData,
+      contacts: contactsData,
+      tasks: tasksData,
+      pipeline: pipelineData
+    };
+  } catch (error) {
+    console.error('Error getting CRM context:', error);
+    return null;
+  }
+}
+
+// Helper function to build system prompt with CRM context
+function buildSystemPrompt(crmData, userSystemPrompt = '') {
+  let systemPrompt = userSystemPrompt || 'You are a helpful CRM assistant that helps users understand their customer data, deals, pipeline, and tasks.';
+  
+  systemPrompt += '\n\nYou have access to the following CRM data:\n\n';
+  
+  // Add customers context
+  if (crmData.customers?.data && crmData.customers.data.length > 0) {
+    systemPrompt += `CUSTOMERS (${crmData.customers.data.length} total):\n`;
+    const topCustomers = crmData.customers.data.slice(0, 10).map(c => 
+      `- ${c.name} (${c.industry}, Status: ${c.status}, Health Score: ${c.healthScore || 'N/A'})`
+    ).join('\n');
+    systemPrompt += topCustomers + '\n\n';
+  }
+  
+  // Add top customers by deal value
+  if (crmData.topCustomers?.topCustomersByDealValue) {
+    systemPrompt += `TOP CUSTOMERS BY DEAL VALUE:\n`;
+    const topDeals = crmData.topCustomers.topCustomersByDealValue.slice(0, 5).map((deal, idx) => 
+      `${idx + 1}. ${deal.customer} - $${deal.value?.toLocaleString() || deal.amount?.toLocaleString() || 'N/A'} (${deal.stage || 'Unknown Stage'})`
+    ).join('\n');
+    systemPrompt += topDeals + '\n\n';
+  }
+  
+  // Add deals closing soon
+  if (crmData.closingDeals?.deals) {
+    systemPrompt += `DEALS CLOSING SOON:\n`;
+    const closingDeals = crmData.closingDeals.deals.slice(0, 5).map(deal => 
+      `- ${deal.customer || deal.customerName || 'Unknown'} - $${deal.value?.toLocaleString() || deal.amount?.toLocaleString() || 'N/A'} (Close Date: ${deal.closeDate || 'N/A'}, Probability: ${deal.probability || 'N/A'}%)`
+    ).join('\n');
+    systemPrompt += closingDeals + '\n\n';
+  }
+  
+  // Add contacts
+  if (crmData.contacts?.data && crmData.contacts.data.length > 0) {
+    systemPrompt += `CONTACTS (${crmData.contacts.data.length} total):\n`;
+    const recentContacts = crmData.contacts.data.slice(0, 10).map(c => 
+      `- ${c.firstName} ${c.lastName} (${c.title || 'No title'}) at ${c.customerName || 'Unknown Customer'}`
+    ).join('\n');
+    systemPrompt += recentContacts + '\n\n';
+  }
+  
+  // Add tasks
+  if (crmData.tasks?.data && crmData.tasks.data.length > 0) {
+    const openTasks = crmData.tasks.data.filter(t => t.status !== 'Completed').slice(0, 10);
+    if (openTasks.length > 0) {
+      systemPrompt += `OPEN TASKS (${openTasks.length} shown, ${crmData.tasks.data.filter(t => t.status !== 'Completed').length} total):\n`;
+      const tasksList = openTasks.map(t => 
+        `- ${t.title || 'Untitled'} (Priority: ${t.priority || 'Normal'}, Due: ${t.dueDate || 'N/A'}, Customer: ${t.customerName || 'N/A'})`
+      ).join('\n');
+      systemPrompt += tasksList + '\n\n';
+    }
+  }
+  
+  // Add pipeline summary
+  if (crmData.pipeline?.summary) {
+    const summary = crmData.pipeline.summary;
+    systemPrompt += `PIPELINE SUMMARY:\n`;
+    systemPrompt += `- Total Deals: ${summary.totalDeals || 'N/A'}\n`;
+    systemPrompt += `- Total Value: $${summary.totalValue?.toLocaleString() || 'N/A'}\n`;
+    systemPrompt += `- Average Deal Size: $${summary.averageDealSize?.toLocaleString() || 'N/A'}\n`;
+    systemPrompt += `- Weighted Pipeline: $${summary.weightedPipeline?.toLocaleString() || 'N/A'}\n\n`;
+    
+    if (crmData.pipeline.byStage) {
+      systemPrompt += `PIPELINE BY STAGE:\n`;
+      Object.entries(crmData.pipeline.byStage).forEach(([stage, data]) => {
+        systemPrompt += `- ${stage}: ${data.count || 0} deals, $${data.value?.toLocaleString() || '0'}\n`;
+      });
+      systemPrompt += '\n';
+    }
+  }
+  
+  systemPrompt += '\nUse this CRM data to provide accurate, helpful responses. When users ask about customers, deals, tasks, or pipeline status, reference the specific data above.';
+  
+  return systemPrompt;
+}
+
+// POST /api/chat/messages - Proxy endpoint for Claude API calls
+app.post('/api/chat/messages', async (req, res) => {
+  try {
+    // Validate request body
+    const { messages, system, max_tokens = 1024 } = req.body;
+    
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid request: messages array is required'
+      });
+    }
+    
+    // Validate message format
+    for (const msg of messages) {
+      if (!msg.role || !msg.content) {
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid message format: each message must have role and content'
+        });
+      }
+      if (!['user', 'assistant'].includes(msg.role)) {
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid message role: must be "user" or "assistant"'
+        });
+      }
+    }
+    
+    // Check for Anthropic API key
+    const anthropicApiKey = process.env.ANTHROPIC_API_KEY;
+    if (!anthropicApiKey) {
+      console.error('ANTHROPIC_API_KEY environment variable is not set');
+      return res.status(500).json({
+        success: false,
+        error: 'Server configuration error: Anthropic API key not configured'
+      });
+    }
+    
+    // Get CRM context data
+    console.log('Getting CRM context data...');
+    const crmData = getCRMContext();
+    
+    // Build system prompt with CRM context
+    const systemPrompt = buildSystemPrompt(crmData, system);
+    
+    // Prepare request to Anthropic API
+    const anthropicRequest = {
+      model: 'claude-3-5-haiku-20241022',
+      max_tokens: max_tokens,
+      system: systemPrompt,
+      messages: messages.map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }))
+    };
+    
+    console.log('Calling Anthropic Claude API...');
+    
+    // Call Anthropic API
+    const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': anthropicApiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify(anthropicRequest)
+    });
+    
+    if (!anthropicResponse.ok) {
+      const errorData = await anthropicResponse.json().catch(() => ({ error: 'Unknown error' }));
+      console.error('Anthropic API error:', errorData);
+      return res.status(anthropicResponse.status || 500).json({
+        success: false,
+        error: 'Anthropic API error',
+        details: errorData
+      });
+    }
+    
+    const anthropicData = await anthropicResponse.json();
+    
+    // Extract content from Anthropic response
+    // Anthropic returns content as an array of text blocks
+    let content = '';
+    if (anthropicData.content && Array.isArray(anthropicData.content)) {
+      content = anthropicData.content
+        .filter(block => block.type === 'text')
+        .map(block => block.text)
+        .join('');
+    } else if (typeof anthropicData.content === 'string') {
+      content = anthropicData.content;
+    }
+    
+    // Return formatted response
+    res.json({
+      success: true,
+      content: content,
+      usage: {
+        input_tokens: anthropicData.usage?.input_tokens || 0,
+        output_tokens: anthropicData.usage?.output_tokens || 0
+      }
+    });
+    
+  } catch (error) {
+    console.error('Error in /api/chat/messages:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error',
+      message: error.message
+    });
+  }
 });
 
 // ============================================
