@@ -9,7 +9,7 @@ npm install
 npm start
 ```
 
-Server runs on `[http://localhost:3001](https://crm-api-production.up.railway.app/api)`
+Server runs on `https://crm-api-production.up.railway.app/api`
 
 ## Sample Data
 
