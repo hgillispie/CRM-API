@@ -1,0 +1,23 @@
+{
+  "name": "mock-crm-api",
+  "version": "1.0.0",
+  "description": "Mock CRM API server with rich data for chatbot integration",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [
+    "crm",
+    "api",
+    "mock",
+    "chatbot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
