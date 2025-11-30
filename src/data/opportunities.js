@@ -1,598 +1,412 @@
 // Rich mock opportunity/deal data for CRM
+// Designed to support chatbot queries about pipeline, deals, and negotiations
+// Total pipeline: ~$487.5K across 5 main deals, avg deal size: ~$97.5K
+
 export const opportunities = [
-  // Apex Manufacturing Corp opportunities
+  // RetailGiant - Largest deal, Proposal stage
   {
     id: "opp_001",
     customerId: "cust_001",
-    name: "Enterprise Platform Expansion",
-    description: "Expansion of existing platform deployment to include all 5 manufacturing facilities, plus integration with their new ERP system.",
-    stage: "Negotiation",
-    probability: 75,
-    amount: 850000,
-    currency: "USD",
-    closeDate: "2025-01-15",
-    owner: "Sarah Mitchell",
-    type: "Expansion",
-    source: "Existing Customer",
-    primaryContactId: "cont_001",
-    competitors: ["SAP", "Oracle"],
-    nextStep: "Final contract review with legal team",
-    createdAt: "2024-06-15T10:00:00Z",
-    lastModified: "2024-11-28T14:22:00Z",
-    forecastCategory: "Commit",
-    products: [
-      { name: "Enterprise Platform License", quantity: 4, unitPrice: 150000 },
-      { name: "Implementation Services", quantity: 1, unitPrice: 200000 },
-      { name: "Annual Support", quantity: 1, unitPrice: 50000 }
-    ],
-    notes: "Strong executive sponsorship. Budget approved. Legal review in progress. Expected to close before year-end.",
-    tags: ["strategic", "expansion", "high-priority"]
-  },
-  {
-    id: "opp_002",
-    customerId: "cust_001",
-    name: "Predictive Maintenance Module",
-    description: "Add-on module for predictive maintenance capabilities using IoT sensors and machine learning.",
-    stage: "Proposal",
-    probability: 50,
-    amount: 320000,
-    currency: "USD",
-    closeDate: "2025-03-31",
-    owner: "Sarah Mitchell",
-    type: "Upsell",
-    source: "Product Team Referral",
-    primaryContactId: "cont_002",
-    competitors: ["Siemens", "PTC"],
-    nextStep: "Present ROI analysis to VP of Operations",
-    createdAt: "2024-09-20T14:30:00Z",
-    lastModified: "2024-11-25T10:00:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Predictive Maintenance Module", quantity: 1, unitPrice: 250000 },
-      { name: "IoT Sensor Integration", quantity: 1, unitPrice: 50000 },
-      { name: "Training Package", quantity: 1, unitPrice: 20000 }
-    ],
-    notes: "Linda Chen interested but needs clear ROI. Competing against in-house solution proposal.",
-    tags: ["iot", "upsell", "competitive"]
-  },
-  
-  // TechVenture Solutions opportunities
-  {
-    id: "opp_003",
-    customerId: "cust_002",
-    name: "AI Analytics Suite Renewal & Upgrade",
-    description: "Annual renewal with upgrade to premium tier including advanced ML models and dedicated support.",
-    stage: "Closed Won",
-    probability: 100,
-    amount: 175000,
-    currency: "USD",
-    closeDate: "2024-11-15",
-    owner: "Michael Chen",
-    type: "Renewal",
-    source: "Existing Customer",
-    primaryContactId: "cont_004",
-    competitors: [],
-    nextStep: "Implementation kickoff scheduled",
-    createdAt: "2024-08-01T09:00:00Z",
-    lastModified: "2024-11-15T16:45:00Z",
-    forecastCategory: "Closed",
-    products: [
-      { name: "Premium Analytics Suite", quantity: 1, unitPrice: 150000 },
-      { name: "Dedicated Support Package", quantity: 1, unitPrice: 25000 }
-    ],
-    notes: "Smooth renewal process. Customer very satisfied with product. Upgraded from standard tier.",
-    tags: ["renewal", "upgrade", "satisfied-customer"]
-  },
-  {
-    id: "opp_004",
-    customerId: "cust_002",
-    name: "Custom Integration Development",
-    description: "Custom API development for integration with their proprietary healthcare data systems.",
-    stage: "Discovery",
-    probability: 30,
-    amount: 95000,
-    currency: "USD",
-    closeDate: "2025-06-30",
-    owner: "Michael Chen",
-    type: "New Business",
-    source: "Customer Request",
-    primaryContactId: "cont_005",
-    competitors: ["Custom In-House Development"],
-    nextStep: "Technical discovery sessions with CTO",
-    createdAt: "2024-11-10T11:00:00Z",
-    lastModified: "2024-11-22T11:00:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Custom Integration Development", quantity: 1, unitPrice: 75000 },
-      { name: "API Documentation & Training", quantity: 1, unitPrice: 20000 }
-    ],
-    notes: "Marcus wants deep technical discussion before committing. May decide to build in-house.",
-    tags: ["custom-dev", "integration", "technical"]
-  },
-  
-  // Global Logistics Partners opportunities
-  {
-    id: "opp_005",
-    customerId: "cust_003",
-    name: "Global Tracking Platform",
-    description: "Enterprise-wide real-time shipment tracking and visibility platform across all 45 countries of operation.",
-    stage: "Negotiation",
-    probability: 85,
-    amount: 2400000,
-    currency: "USD",
-    closeDate: "2025-02-28",
-    owner: "Sarah Mitchell",
-    type: "New Business",
-    source: "RFP Response",
-    primaryContactId: "cont_006",
-    competitors: ["project44", "FourKites"],
-    nextStep: "Executive presentation to board of directors",
-    createdAt: "2024-04-10T08:30:00Z",
-    lastModified: "2024-11-29T09:30:00Z",
-    forecastCategory: "Commit",
-    products: [
-      { name: "Global Tracking Platform License", quantity: 1, unitPrice: 1500000 },
-      { name: "Global Implementation", quantity: 1, unitPrice: 600000 },
-      { name: "Premium Support - 3 Year", quantity: 1, unitPrice: 300000 }
-    ],
-    notes: "We're the preferred vendor. Final board approval needed. Patricia is championing internally.",
-    tags: ["strategic", "large-deal", "preferred-vendor"]
-  },
-  
-  // Riverside Medical Center opportunities
-  {
-    id: "opp_006",
-    customerId: "cust_004",
-    name: "Patient Experience Platform",
-    description: "Digital patient engagement platform including appointment scheduling, telehealth, and patient portal.",
-    stage: "Qualification",
-    probability: 25,
-    amount: 680000,
-    currency: "USD",
-    closeDate: "2025-09-30",
-    owner: "Jennifer Rodriguez",
-    type: "New Business",
-    source: "Trade Show",
-    primaryContactId: "cont_008",
-    competitors: ["Epic MyChart", "Cerner"],
-    nextStep: "Clinical workflow assessment",
-    createdAt: "2024-10-05T13:00:00Z",
-    lastModified: "2024-11-25T11:15:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Patient Experience Platform", quantity: 1, unitPrice: 450000 },
-      { name: "Implementation & Training", quantity: 1, unitPrice: 180000 },
-      { name: "First Year Support", quantity: 1, unitPrice: 50000 }
-    ],
-    notes: "Budget constraints due to recent hospital expansion. CFO skeptical. Need strong clinical ROI story.",
-    tags: ["healthcare", "budget-constrained", "early-stage"]
-  },
-  
-  // GreenLeaf Organics opportunities
-  {
-    id: "opp_007",
-    customerId: "cust_005",
-    name: "Supply Chain Visibility Solution",
-    description: "End-to-end supply chain tracking from farm to retail shelf with sustainability reporting.",
-    stage: "Proposal",
-    probability: 60,
-    amount: 85000,
-    currency: "USD",
-    closeDate: "2025-02-15",
-    owner: "Michael Chen",
-    type: "New Business",
-    source: "Referral",
-    primaryContactId: "cont_010",
-    competitors: ["FoodLogiQ", "Aptean"],
-    nextStep: "Demo with operations team",
-    createdAt: "2024-09-28T10:30:00Z",
-    lastModified: "2024-11-26T15:30:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Supply Chain Platform - SMB", quantity: 1, unitPrice: 60000 },
-      { name: "Implementation", quantity: 1, unitPrice: 15000 },
-      { name: "Sustainability Module", quantity: 1, unitPrice: 10000 }
-    ],
-    notes: "Maya very engaged. Sustainability tracking is key differentiator. May need financing options.",
-    tags: ["sustainability", "smb", "fast-growing"]
-  },
-  
-  // Quantum Financial Services opportunities
-  {
-    id: "opp_008",
-    customerId: "cust_006",
-    name: "Trading Floor Analytics Modernization",
-    description: "Complete modernization of trading analytics platform with real-time risk assessment and AI-powered insights.",
-    stage: "Closed Won",
-    probability: 100,
-    amount: 3200000,
-    currency: "USD",
-    closeDate: "2024-10-31",
-    owner: "David Thompson",
-    type: "New Business",
-    source: "Executive Referral",
-    primaryContactId: "cont_011",
-    competitors: ["Bloomberg", "Refinitiv"],
-    nextStep: "Phase 1 implementation in progress",
-    createdAt: "2024-02-15T09:00:00Z",
-    lastModified: "2024-10-31T17:00:00Z",
-    forecastCategory: "Closed",
-    products: [
-      { name: "Enterprise Analytics Platform", quantity: 1, unitPrice: 2000000 },
-      { name: "AI/ML Module", quantity: 1, unitPrice: 500000 },
-      { name: "Implementation Services", quantity: 1, unitPrice: 500000 },
-      { name: "Premium Support - Year 1", quantity: 1, unitPrice: 200000 }
-    ],
-    notes: "Flagship win. Multi-year strategic partnership. Reference customer for financial services vertical.",
-    tags: ["flagship", "strategic", "reference-customer"]
-  },
-  {
-    id: "opp_009",
-    customerId: "cust_006",
-    name: "Compliance Automation Platform",
-    description: "Regulatory compliance automation for SEC, FINRA, and international reporting requirements.",
-    stage: "Proposal",
-    probability: 55,
-    amount: 890000,
-    currency: "USD",
-    closeDate: "2025-04-30",
-    owner: "David Thompson",
-    type: "Cross-sell",
-    source: "Existing Customer",
-    primaryContactId: "cont_012",
-    competitors: ["Compliance.ai", "RegTech Solutions"],
-    nextStep: "Compliance team evaluation",
-    createdAt: "2024-10-20T14:00:00Z",
-    lastModified: "2024-11-27T14:30:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Compliance Platform License", quantity: 1, unitPrice: 650000 },
-      { name: "Custom Regulatory Configuration", quantity: 1, unitPrice: 180000 },
-      { name: "Training Package", quantity: 1, unitPrice: 60000 }
-    ],
-    notes: "Building on success of analytics platform. Rachel is champion but needs compliance team buy-in.",
-    tags: ["compliance", "cross-sell", "regulated"]
-  },
-  
-  // EduTech Innovations opportunities
-  {
-    id: "opp_010",
-    customerId: "cust_007",
-    name: "Learning Platform Integration",
-    description: "Integration of our content delivery platform with their adaptive learning system.",
-    stage: "Stalled",
-    probability: 15,
-    amount: 145000,
-    currency: "USD",
-    closeDate: "2025-08-31",
-    owner: "Jennifer Rodriguez",
-    type: "New Business",
-    source: "Partner Referral",
-    primaryContactId: "cont_013",
-    competitors: ["Canvas", "Blackboard"],
-    nextStep: "Re-engagement meeting scheduled",
-    createdAt: "2024-05-12T11:30:00Z",
-    lastModified: "2024-11-20T10:45:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Content Integration Platform", quantity: 1, unitPrice: 100000 },
-      { name: "Implementation", quantity: 1, unitPrice: 35000 },
-      { name: "Support - Year 1", quantity: 1, unitPrice: 10000 }
-    ],
-    notes: "Deal stalled due to leadership changes. Amanda supportive but new priorities emerged. Need to rebuild momentum.",
-    tags: ["stalled", "education", "re-engagement-needed"]
-  },
-  
-  // Pacific Energy Solutions opportunities
-  {
-    id: "opp_011",
-    customerId: "cust_008",
-    name: "Grid Management System",
-    description: "Advanced grid management and energy storage optimization system for 15GW renewable portfolio.",
-    stage: "Negotiation",
-    probability: 70,
-    amount: 1850000,
-    currency: "USD",
-    closeDate: "2025-03-15",
-    owner: "Sarah Mitchell",
-    type: "New Business",
-    source: "Industry Conference",
-    primaryContactId: "cont_014",
-    competitors: ["GE", "Siemens Energy"],
-    nextStep: "Final technical validation",
-    createdAt: "2024-07-08T09:30:00Z",
-    lastModified: "2024-11-28T16:00:00Z",
-    forecastCategory: "Best Case",
-    products: [
-      { name: "Grid Management Platform", quantity: 1, unitPrice: 1200000 },
-      { name: "Storage Optimization Module", quantity: 1, unitPrice: 400000 },
-      { name: "Implementation & Commissioning", quantity: 1, unitPrice: 250000 }
-    ],
-    notes: "Strong technical fit. Competing against larger players but we have better integration capabilities.",
-    tags: ["energy", "technical-sale", "competitive"]
-  },
-  {
-    id: "opp_012",
-    customerId: "cust_008",
-    name: "Predictive Weather Analytics",
-    description: "AI-powered weather prediction and energy generation forecasting add-on.",
-    stage: "Discovery",
-    probability: 40,
-    amount: 380000,
-    currency: "USD",
-    closeDate: "2025-06-30",
-    owner: "Sarah Mitchell",
-    type: "Upsell",
-    source: "Product Team",
-    primaryContactId: "cont_014",
-    competitors: ["Tomorrow.io", "DTN"],
-    nextStep: "Proof of concept proposal",
-    createdAt: "2024-11-01T10:00:00Z",
-    lastModified: "2024-11-22T09:30:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Weather Analytics Module", quantity: 1, unitPrice: 280000 },
-      { name: "Historical Data Package", quantity: 1, unitPrice: 50000 },
-      { name: "Custom Model Training", quantity: 1, unitPrice: 50000 }
-    ],
-    notes: "Dependent on grid management deal. If we win that, this becomes much more likely.",
-    tags: ["ai", "upsell", "weather"]
-  },
-  
-  // BuildRight Construction opportunities
-  {
-    id: "opp_013",
-    customerId: "cust_009",
-    name: "Project Management Platform",
-    description: "Cloud-based construction project management and collaboration platform.",
-    stage: "Closed Lost",
-    probability: 0,
-    amount: 125000,
-    currency: "USD",
-    closeDate: "2024-09-30",
-    owner: "David Thompson",
-    type: "New Business",
-    source: "Cold Outreach",
-    primaryContactId: "cont_016",
-    competitors: ["Procore", "Autodesk"],
-    nextStep: "N/A - Lost to competitor",
-    createdAt: "2024-03-15T14:00:00Z",
-    lastModified: "2024-09-30T16:00:00Z",
-    forecastCategory: "Omitted",
-    products: [
-      { name: "PM Platform - Mid Market", quantity: 1, unitPrice: 95000 },
-      { name: "Implementation", quantity: 1, unitPrice: 30000 }
-    ],
-    lossReason: "Budget constraints and chose lower-cost competitor",
-    notes: "Lost to Procore on price. Customer facing cash flow issues. May revisit in 12 months.",
-    tags: ["lost", "price-sensitive", "construction"]
-  },
-  
-  // Stellar Retail Group opportunities
-  {
-    id: "opp_014",
-    customerId: "cust_010",
-    name: "Omnichannel Commerce Platform",
-    description: "Unified commerce platform connecting 450 stores with e-commerce and mobile channels.",
+    customerName: "RetailGiant",
+    name: "Digital Commerce Platform",
+    description: "Enterprise omnichannel commerce platform to unify RetailGiant's 350+ stores with their e-commerce presence. Includes inventory sync, unified customer profiles, and mobile POS integration.",
     stage: "Proposal",
     probability: 65,
-    amount: 4500000,
+    amount: 150000,
     currency: "USD",
-    closeDate: "2025-05-31",
-    owner: "Jennifer Rodriguez",
+    closeDate: "2024-12-20",
+    expectedCloseDate: "2024-12-20",
+    owner: "Sarah Mitchell",
+    ownerId: "user_001",
     type: "New Business",
-    source: "RFP Response",
-    primaryContactId: "cont_017",
-    competitors: ["Salesforce Commerce", "SAP Commerce"],
-    nextStep: "Technical deep-dive with IT team",
-    createdAt: "2024-08-20T08:00:00Z",
-    lastModified: "2024-11-27T13:15:00Z",
+    source: "Trade Show",
+    primaryContactId: "cont_001",
+    primaryContactName: "Jennifer Walsh",
+    competitors: ["Salesforce Commerce", "Shopify Plus"],
+    competitorAnalysis: "Salesforce is our main competitor - stronger brand but 40% more expensive. Shopify Plus is being considered for cost but lacks enterprise features we offer.",
+    nextStep: "Final proposal presentation to CDO and VP IT next Tuesday",
+    nextStepDate: "2024-12-03",
+    createdAt: "2024-09-15T10:00:00Z",
+    lastModified: "2024-11-29T14:00:00Z",
+    lastActivityDate: "2024-11-29T14:00:00Z",
     forecastCategory: "Best Case",
+    weightedAmount: 97500,
     products: [
-      { name: "Commerce Platform Enterprise", quantity: 1, unitPrice: 2800000 },
-      { name: "Mobile App Development", quantity: 1, unitPrice: 600000 },
-      { name: "Store Integration Package", quantity: 450, unitPrice: 2000 },
-      { name: "Implementation Services", quantity: 1, unitPrice: 500000 }
+      { name: "Commerce Platform License", quantity: 1, unitPrice: 85000 },
+      { name: "Implementation Services", quantity: 1, unitPrice: 45000 },
+      { name: "First Year Support", quantity: 1, unitPrice: 20000 }
     ],
-    notes: "Largest deal in pipeline. Catherine is strong champion. Need to address IT scalability concerns.",
-    tags: ["strategic", "large-deal", "retail", "omnichannel"]
-  },
-  {
-    id: "opp_015",
-    customerId: "cust_010",
-    name: "Customer Loyalty Platform Upgrade",
-    description: "Modernization of existing loyalty program with AI-powered personalization.",
-    stage: "Discovery",
-    probability: 35,
-    amount: 780000,
-    currency: "USD",
-    closeDate: "2025-09-30",
-    owner: "Jennifer Rodriguez",
-    type: "Upsell",
-    source: "Account Planning",
-    primaryContactId: "cont_017",
-    competitors: ["Antavo", "Comarch"],
-    nextStep: "Business case development",
-    createdAt: "2024-11-15T10:00:00Z",
-    lastModified: "2024-11-20T16:00:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Loyalty Platform", quantity: 1, unitPrice: 500000 },
-      { name: "AI Personalization Module", quantity: 1, unitPrice: 200000 },
-      { name: "Data Migration", quantity: 1, unitPrice: 80000 }
-    ],
-    notes: "Secondary opportunity dependent on commerce platform decision. Early stage discussions.",
-    tags: ["loyalty", "ai", "upsell"]
+    dealNotes: "Strong champion in Jennifer Walsh (CDO). Robert Chen (VP IT) has integration concerns we need to address. Budget is approved for Q4. Key differentiator: our API flexibility and faster implementation timeline.",
+    risks: ["Integration complexity concerns from IT", "Competing priorities with holiday season"],
+    strengths: ["Executive sponsorship", "Budget approved", "Technical fit validated"],
+    tags: ["enterprise", "retail", "high-priority", "q4-close"]
   },
   
-  // CyberShield Security opportunities
+  // HealthCare Pro - High potential, Proposal stage with budget concerns
   {
-    id: "opp_016",
-    customerId: "cust_011",
-    name: "Security Operations Center Tooling",
-    description: "Integrated SOC platform with threat intelligence and automated response capabilities.",
+    id: "opp_002",
+    customerId: "cust_002",
+    customerName: "HealthCare Pro",
+    name: "Patient Engagement Platform Expansion",
+    description: "Expansion of patient engagement platform to support HealthCare Pro's growth into 15 new hospital systems. The platform includes telehealth integration, appointment scheduling, patient portal, and HIPAA-compliant messaging. This deal is critical for their Q1 expansion plans.",
+    stage: "Proposal",
+    probability: 50,
+    amount: 125000,
+    currency: "USD",
+    closeDate: "2024-12-15",
+    expectedCloseDate: "2024-12-15",
+    owner: "Sarah Mitchell",
+    ownerId: "user_001",
+    type: "Expansion",
+    source: "Existing Customer",
+    primaryContactId: "cont_003",
+    primaryContactName: "Dr. Amanda Foster",
+    competitors: ["Epic MyChart", "Cerner Patient Portal"],
+    competitorAnalysis: "Epic is the incumbent in some target hospitals but our solution offers better patient experience scores. Integration with their existing EHR is our key advantage.",
+    nextStep: "Schedule call to address CFO budget concerns - need ROI documentation",
+    nextStepDate: "2024-12-02",
+    createdAt: "2024-08-20T09:00:00Z",
+    lastModified: "2024-11-28T16:30:00Z",
+    lastActivityDate: "2024-11-28T16:30:00Z",
+    forecastCategory: "Pipeline",
+    weightedAmount: 62500,
+    products: [
+      { name: "Patient Engagement Platform - Enterprise", quantity: 1, unitPrice: 75000 },
+      { name: "Telehealth Module", quantity: 1, unitPrice: 25000 },
+      { name: "Implementation & Training", quantity: 1, unitPrice: 20000 },
+      { name: "Annual Support", quantity: 1, unitPrice: 5000 }
+    ],
+    dealNotes: "Dr. Amanda Foster is our champion and strongly advocates for the platform. However, CFO Thomas Reed is pushing back on budget due to recent cost-cutting initiatives. We need to provide stronger ROI justification - specifically around patient retention and operational efficiency gains. Dr. Foster mentioned that competitors are circling, so timing is important.",
+    budgetContext: "HealthCare Pro recently announced cost-cutting measures. CFO is scrutinizing all new expenditures. Need to frame this as revenue-generating, not cost center.",
+    championContext: "Dr. Foster sees this as essential for their hospital expansion. She's been our advocate for 6 months and has significant influence with the CEO.",
+    risks: ["Budget scrutiny from CFO", "Competing priorities", "Complex multi-stakeholder approval"],
+    strengths: ["Strong clinical champion", "Proven ROI from current deployment", "Strategic fit with expansion plans"],
+    tags: ["healthcare", "expansion", "budget-concern", "champion-driven"]
+  },
+  
+  // Acme Corp - Recently closed, implementation starting
+  {
+    id: "opp_003",
+    customerId: "cust_003",
+    customerName: "Acme Corp",
+    name: "Manufacturing Operations Platform",
+    description: "Core manufacturing operations platform for Acme Corp's main facility. Includes production scheduling, quality management, and supply chain visibility modules.",
     stage: "Closed Won",
     probability: 100,
-    amount: 245000,
+    amount: 75000,
     currency: "USD",
     closeDate: "2024-11-20",
-    owner: "Michael Chen",
+    expectedCloseDate: "2024-11-15",
+    actualCloseDate: "2024-11-20",
+    owner: "Mike Johnson",
+    ownerId: "user_002",
     type: "New Business",
-    source: "Partner Referral",
-    primaryContactId: "cont_019",
-    competitors: ["Splunk", "CrowdStrike"],
-    nextStep: "Deployment scheduled for December",
-    createdAt: "2024-08-05T11:00:00Z",
-    lastModified: "2024-11-20T15:30:00Z",
-    forecastCategory: "Closed",
-    products: [
-      { name: "SOC Platform", quantity: 1, unitPrice: 180000 },
-      { name: "Threat Intelligence Feed", quantity: 1, unitPrice: 45000 },
-      { name: "Implementation", quantity: 1, unitPrice: 20000 }
-    ],
-    notes: "Fast sales cycle. Alex made quick decision. Strong technical validation. Good reference potential.",
-    tags: ["fast-close", "security", "reference-potential"]
-  },
-  
-  // Precision Aerospace opportunities
-  {
-    id: "opp_017",
-    customerId: "cust_013",
-    name: "Quality Management System",
-    description: "AS9100-compliant quality management system with full traceability and supplier quality modules.",
-    stage: "Negotiation",
-    probability: 80,
-    amount: 2100000,
-    currency: "USD",
-    closeDate: "2025-01-31",
-    owner: "Sarah Mitchell",
-    type: "New Business",
-    source: "Industry Conference",
-    primaryContactId: "cont_020",
+    source: "Referral",
+    primaryContactId: "cont_005",
+    primaryContactName: "Michael Torres",
     competitors: ["SAP", "Oracle"],
-    nextStep: "Contract review with procurement",
-    createdAt: "2024-05-20T09:00:00Z",
-    lastModified: "2024-11-28T10:00:00Z",
-    forecastCategory: "Commit",
+    nextStep: "Implementation kickoff scheduled for December 5",
+    nextStepDate: "2024-12-05",
+    createdAt: "2024-06-10T14:00:00Z",
+    lastModified: "2024-11-20T15:00:00Z",
+    lastActivityDate: "2024-11-25T10:00:00Z",
+    forecastCategory: "Closed",
+    weightedAmount: 75000,
     products: [
-      { name: "QMS Enterprise Platform", quantity: 1, unitPrice: 1400000 },
-      { name: "Supplier Quality Module", quantity: 1, unitPrice: 300000 },
-      { name: "Implementation & Validation", quantity: 1, unitPrice: 400000 }
+      { name: "Manufacturing Operations Platform", quantity: 1, unitPrice: 50000 },
+      { name: "Implementation Services", quantity: 1, unitPrice: 20000 },
+      { name: "First Year Support", quantity: 1, unitPrice: 5000 }
     ],
-    notes: "Critical deal. Passed all technical evaluations. AS9100 compliance was key differentiator.",
-    tags: ["aerospace", "compliance", "strategic"]
-  },
-  {
-    id: "opp_018",
-    customerId: "cust_013",
-    name: "Digital Twin Manufacturing",
-    description: "Digital twin solution for manufacturing process simulation and optimization.",
-    stage: "Qualification",
-    probability: 25,
-    amount: 950000,
-    currency: "USD",
-    closeDate: "2025-12-31",
-    owner: "Sarah Mitchell",
-    type: "Upsell",
-    source: "Product Innovation",
-    primaryContactId: "cont_021",
-    competitors: ["Siemens", "Dassault"],
-    nextStep: "Technical feasibility study",
-    createdAt: "2024-11-05T14:00:00Z",
-    lastModified: "2024-11-25T14:00:00Z",
-    forecastCategory: "Pipeline",
-    products: [
-      { name: "Digital Twin Platform", quantity: 1, unitPrice: 700000 },
-      { name: "Custom Model Development", quantity: 1, unitPrice: 250000 }
-    ],
-    notes: "Future opportunity. Dr. Zhang interested but this is a long-term strategic initiative.",
-    tags: ["digital-twin", "long-term", "innovation"]
+    dealNotes: "Successfully closed after 5-month sales cycle. Michael Torres is excited about implementation. High potential for expansion to their other 3 facilities - could be $200K+ additional revenue. Key win factor: our faster implementation timeline vs SAP (3 months vs 9 months).",
+    winFactors: ["Faster implementation", "Better price point", "Strong reference from similar manufacturer"],
+    expansionPotential: "3 additional facilities could represent $200K+ in expansion revenue over next 18 months",
+    risks: [],
+    strengths: ["Deal closed", "Expansion potential", "Strong champion"],
+    tags: ["manufacturing", "closed-won", "expansion-potential"]
   },
   
-  // NextGen Pharmaceuticals opportunities
+  // TechSolutions - In negotiation, price sensitive
   {
-    id: "opp_019",
-    customerId: "cust_014",
-    name: "Clinical Trial Management System",
-    description: "End-to-end clinical trial management with EDC, patient recruitment, and regulatory submission modules.",
-    stage: "Proposal",
-    probability: 55,
-    amount: 1650000,
-    currency: "USD",
-    closeDate: "2025-04-30",
-    owner: "Jennifer Rodriguez",
-    type: "New Business",
-    source: "RFP Response",
-    primaryContactId: "cont_022",
-    competitors: ["Medidata", "Veeva"],
-    nextStep: "Reference calls with similar pharma companies",
-    createdAt: "2024-07-15T10:30:00Z",
-    lastModified: "2024-11-26T09:45:00Z",
-    forecastCategory: "Best Case",
-    products: [
-      { name: "CTMS Platform", quantity: 1, unitPrice: 1000000 },
-      { name: "EDC Module", quantity: 1, unitPrice: 350000 },
-      { name: "Regulatory Module", quantity: 1, unitPrice: 200000 },
-      { name: "Implementation & Validation", quantity: 1, unitPrice: 100000 }
-    ],
-    notes: "Competitive process. We're in final 3. Dr. Reynolds needs clinical evidence of faster trial execution.",
-    tags: ["clinical-trials", "pharma", "competitive"]
-  },
-  
-  // Urban Mobility Systems opportunities
-  {
-    id: "opp_020",
-    customerId: "cust_015",
-    name: "Fleet Management Platform",
-    description: "EV fleet management platform with charging optimization and predictive maintenance.",
+    id: "opp_004",
+    customerId: "cust_004",
+    customerName: "TechSolutions",
+    name: "Developer Platform Integration",
+    description: "API management and developer portal platform to streamline TechSolutions' partner integrations. CTO David Kim is the key decision maker - technically impressed but concerned about pricing vs competitors.",
     stage: "Negotiation",
-    probability: 75,
-    amount: 280000,
+    probability: 60,
+    amount: 87500,
     currency: "USD",
-    closeDate: "2025-01-15",
-    owner: "Michael Chen",
+    closeDate: "2024-12-10",
+    expectedCloseDate: "2024-12-10",
+    owner: "Sarah Mitchell",
+    ownerId: "user_001",
     type: "New Business",
     source: "Inbound Lead",
-    primaryContactId: "cont_024",
-    competitors: ["Geotab", "Samsara"],
-    nextStep: "Final pricing negotiation",
-    createdAt: "2024-09-10T13:00:00Z",
-    lastModified: "2024-11-29T14:20:00Z",
+    primaryContactId: "cont_006",
+    primaryContactName: "David Kim",
+    competitors: ["CompetitorX", "CompetitorY"],
+    competitorAnalysis: "CompetitorX: 30% cheaper but missing key API analytics features. CompetitorY: Similar pricing but weaker documentation and support. Our advantages: superior API analytics, better developer experience, faster support response times.",
+    nextStep: "Prepare detailed ROI analysis and competitive comparison for CTO",
+    nextStepDate: "2024-12-02",
+    createdAt: "2024-07-25T11:00:00Z",
+    lastModified: "2024-11-27T11:15:00Z",
+    lastActivityDate: "2024-11-27T11:15:00Z",
     forecastCategory: "Commit",
+    weightedAmount: 52500,
     products: [
-      { name: "Fleet Management Platform", quantity: 1, unitPrice: 200000 },
-      { name: "Charging Optimization", quantity: 1, unitPrice: 50000 },
-      { name: "Predictive Maintenance Module", quantity: 1, unitPrice: 30000 }
+      { name: "API Management Platform", quantity: 1, unitPrice: 55000 },
+      { name: "Developer Portal", quantity: 1, unitPrice: 20000 },
+      { name: "Implementation", quantity: 1, unitPrice: 10000 },
+      { name: "Annual Support", quantity: 1, unitPrice: 2500 }
     ],
-    notes: "Strong fit. Kevin loves the product. Negotiating multi-year discount structure.",
-    tags: ["ev", "fleet", "mobility"]
+    dealNotes: "David Kim (CTO) is impressed with our technical capabilities, especially our API analytics. However, he's comparing us against two competitors and is price sensitive. Lisa Park (CEO) will make final call but has delegated evaluation to David. Key negotiation points: 1) Highlight our superior developer experience, 2) Offer multi-year discount, 3) Emphasize support response time SLAs.",
+    negotiationContext: {
+      mainObjection: "Price compared to CompetitorX",
+      proposedDiscount: "10% multi-year discount offered",
+      keyDifferentiators: ["API analytics", "Developer experience", "Support SLAs"],
+      decisionTimeline: "Decision expected by Dec 10",
+      stakeholders: ["David Kim (CTO) - Technical evaluator", "Lisa Park (CEO) - Final approval"]
+    },
+    approachRecommendation: "Focus on total cost of ownership, not just license price. CompetitorX has hidden costs in implementation and support. Prepare detailed TCO comparison showing 3-year cost advantage. David responds well to technical depth - schedule demo of API analytics features he hasn't seen yet.",
+    risks: ["Price sensitivity", "Active competitor evaluation", "Multiple decision makers"],
+    strengths: ["Technical validation complete", "Strong product fit", "CTO engagement"],
+    tags: ["saas", "negotiation", "competitive", "price-sensitive"]
   },
+  
+  // Global Media - Early stage, qualification
   {
-    id: "opp_021",
-    customerId: "cust_015",
-    name: "Municipal Transit Integration",
-    description: "Integration with 3 municipal transit systems for unified mobility-as-a-service platform.",
-    stage: "Discovery",
-    probability: 30,
-    amount: 450000,
+    id: "opp_005",
+    customerId: "cust_005",
+    customerName: "Global Media",
+    name: "Content Analytics Platform",
+    description: "Enterprise analytics platform for content performance measurement and audience insights. Large potential deal but early stage with complex stakeholder landscape.",
+    stage: "Qualification",
+    probability: 25,
+    amount: 50000,
     currency: "USD",
-    closeDate: "2025-09-30",
-    owner: "Michael Chen",
-    type: "Expansion",
-    source: "Customer Request",
-    primaryContactId: "cont_025",
-    competitors: ["Transit App", "Moovit"],
-    nextStep: "Government procurement process review",
-    createdAt: "2024-11-18T15:00:00Z",
-    lastModified: "2024-11-25T10:00:00Z",
+    closeDate: "2025-02-28",
+    expectedCloseDate: "2025-02-28",
+    owner: "Mike Johnson",
+    ownerId: "user_002",
+    type: "New Business",
+    source: "Cold Outreach",
+    primaryContactId: "cont_008",
+    primaryContactName: "Marcus Williams",
+    competitors: ["Google Analytics 360", "Adobe Analytics"],
+    competitorAnalysis: "Google and Adobe are entrenched but our media-specific features (content attribution, audience segments) are superior for their use case.",
+    nextStep: "Get meeting with CMO Sandra Hughes - Marcus is trying to arrange introduction",
+    nextStepDate: "2024-12-06",
+    createdAt: "2024-10-01T08:45:00Z",
+    lastModified: "2024-11-26T15:30:00Z",
+    lastActivityDate: "2024-11-26T15:30:00Z",
     forecastCategory: "Pipeline",
+    weightedAmount: 12500,
     products: [
-      { name: "MaaS Platform", quantity: 1, unitPrice: 300000 },
-      { name: "Municipal Integration Package", quantity: 3, unitPrice: 50000 }
+      { name: "Content Analytics Platform", quantity: 1, unitPrice: 35000 },
+      { name: "Implementation", quantity: 1, unitPrice: 10000 },
+      { name: "Annual Support", quantity: 1, unitPrice: 5000 }
     ],
-    notes: "Complex deal involving government procurement. Lisa navigating RFP requirements.",
-    tags: ["government", "maas", "complex-sale"]
+    dealNotes: "Marcus Williams (VP Analytics) is our internal champion but is not the decision maker. Need to get to Sandra Hughes (CMO) who controls budget. Complex enterprise sale with multiple stakeholders. Marcus is looking for media industry case studies to build internal business case.",
+    risks: ["Early stage", "No access to decision maker yet", "Complex stakeholder map", "Long sales cycle expected"],
+    strengths: ["Internal champion identified", "Strong product fit for media", "Large expansion potential"],
+    tags: ["media", "enterprise", "early-stage", "complex-sale"]
+  },
+  
+  // Additional historical/context deals for richer data
+  
+  // FinanceFirst Bank - Early qualification, compliance focused
+  {
+    id: "opp_006",
+    customerId: "cust_006",
+    customerName: "FinanceFirst Bank",
+    name: "Compliance Automation Platform",
+    description: "Regulatory compliance automation for banking operations. Long sales cycle expected due to compliance requirements.",
+    stage: "Qualification",
+    probability: 15,
+    amount: 200000,
+    currency: "USD",
+    closeDate: "2025-06-30",
+    expectedCloseDate: "2025-06-30",
+    owner: "Sarah Mitchell",
+    ownerId: "user_001",
+    type: "New Business",
+    source: "Conference",
+    primaryContactId: "cont_010",
+    primaryContactName: "James Morrison",
+    competitors: ["FIS", "Temenos"],
+    nextStep: "Provide SOC2 and compliance documentation",
+    nextStepDate: "2024-12-15",
+    createdAt: "2024-09-20T10:00:00Z",
+    lastModified: "2024-11-20T09:00:00Z",
+    lastActivityDate: "2024-11-20T09:00:00Z",
+    forecastCategory: "Pipeline",
+    weightedAmount: 30000,
+    products: [
+      { name: "Compliance Platform", quantity: 1, unitPrice: 150000 },
+      { name: "Implementation", quantity: 1, unitPrice: 40000 },
+      { name: "Annual Support", quantity: 1, unitPrice: 10000 }
+    ],
+    dealNotes: "Very early stage. Compliance review will take 3-6 months. James is interested but can't move forward without security documentation.",
+    risks: ["Long compliance cycle", "Low engagement", "Many competitors"],
+    strengths: ["Large deal potential", "Strategic vertical"],
+    tags: ["financial-services", "compliance", "long-cycle"]
+  },
+  
+  // MegaLogistics - AT RISK renewal
+  {
+    id: "opp_007",
+    customerId: "cust_008",
+    customerName: "MegaLogistics",
+    name: "Platform Renewal 2025",
+    description: "Annual platform renewal for existing customer. AT RISK due to leadership change - our champion left and new VP is re-evaluating all vendors.",
+    stage: "Negotiation",
+    probability: 40,
+    amount: 95000,
+    currency: "USD",
+    closeDate: "2025-01-31",
+    expectedCloseDate: "2025-01-31",
+    owner: "Sarah Mitchell",
+    ownerId: "user_001",
+    type: "Renewal",
+    source: "Existing Customer",
+    primaryContactId: "cont_011",
+    primaryContactName: "Patricia Nguyen",
+    competitors: ["project44", "FourKites"],
+    competitorAnalysis: "Competitors are actively approaching Patricia. project44 offering aggressive pricing to win the account.",
+    nextStep: "URGENT: Schedule executive meeting to demonstrate value delivered",
+    nextStepDate: "2024-12-01",
+    createdAt: "2024-10-15T09:00:00Z",
+    lastModified: "2024-11-22T14:00:00Z",
+    lastActivityDate: "2024-11-22T14:00:00Z",
+    forecastCategory: "Pipeline",
+    weightedAmount: 38000,
+    atRisk: true,
+    riskReason: "Leadership change - new VP Patricia Nguyen is re-evaluating all vendor relationships. Our previous champion John Smith left the company.",
+    products: [
+      { name: "Logistics Platform Renewal", quantity: 1, unitPrice: 85000 },
+      { name: "Support Renewal", quantity: 1, unitPrice: 10000 }
+    ],
+    dealNotes: "CRITICAL AT-RISK RENEWAL. John Smith (our champion) left in September. New VP Patricia Nguyen started 2 months ago and is reviewing all vendors. Competitors are circling. Need to demonstrate value delivered over past year and build relationship with Patricia ASAP.",
+    risks: ["Leadership change", "Lost champion", "Active competitor pursuit", "Contract expires in 60 days"],
+    strengths: ["Proven value delivery", "Switching costs for customer", "Good product performance"],
+    tags: ["renewal", "at-risk", "urgent", "logistics"]
+  },
+  
+  // Lost deal for conversion context
+  {
+    id: "opp_008",
+    customerId: "cust_007",
+    customerName: "StartupXYZ",
+    name: "Growth Platform",
+    description: "SaaS platform for startup operations. Lost to competitor on price.",
+    stage: "Closed Lost",
+    probability: 0,
+    amount: 25000,
+    currency: "USD",
+    closeDate: "2024-10-15",
+    actualCloseDate: "2024-10-15",
+    owner: "Mike Johnson",
+    ownerId: "user_002",
+    type: "New Business",
+    source: "Inbound Lead",
+    primaryContactId: null,
+    competitors: ["LowerCostCompetitor"],
+    nextStep: null,
+    createdAt: "2024-07-01T14:00:00Z",
+    lastModified: "2024-10-15T11:30:00Z",
+    forecastCategory: "Omitted",
+    lossReason: "Price - startup chose lower-cost competitor that better fit their budget constraints",
+    lossAnalysis: "Deal lost primarily on price. Startup had limited budget and competitor offered 50% lower price point. Our enterprise features were overkill for their current stage. Lesson: better qualify budget early in sales cycle.",
+    products: [
+      { name: "Growth Platform", quantity: 1, unitPrice: 20000 },
+      { name: "Implementation", quantity: 1, unitPrice: 5000 }
+    ],
+    tags: ["lost", "startup", "price-sensitive"]
   }
 ];
+
+// Pipeline metrics for chatbot queries
+export const pipelineMetrics = {
+  // Current quarter deals (the 5 main active deals)
+  currentQuarter: {
+    totalDeals: 5,
+    totalValue: 487500, // RetailGiant 150K + HealthCare Pro 125K + Acme 75K + TechSolutions 87.5K + Global Media 50K
+    averageDealSize: 97500,
+    weightedPipeline: 300000,
+    byStage: {
+      qualification: { count: 1, value: 50000 },      // Global Media
+      proposal: { count: 2, value: 275000 },          // RetailGiant, HealthCare Pro  
+      negotiation: { count: 1, value: 87500 },        // TechSolutions
+      closedWon: { count: 1, value: 75000 }           // Acme Corp
+    }
+  },
+  
+  // Conversion metrics (for "conversion rate decline" query)
+  conversion: {
+    currentRate: 28,
+    previousRate: 33,
+    change: -5,
+    trend: "declining",
+    periodComparison: "vs last quarter",
+    analysis: "Conversion rate dropped from 33% to 28% this quarter. Primary factors: 1) Increased competition in mid-market segment, 2) Longer decision cycles due to economic uncertainty, 3) Two deals lost to aggressive competitor pricing.",
+    recommendations: [
+      "Improve early-stage qualification to focus on higher-probability deals",
+      "Develop competitive battle cards for top 3 competitors",
+      "Accelerate time-to-value demonstrations",
+      "Consider flexible pricing for strategic accounts"
+    ]
+  },
+
+  // Top deals by value (for ranking queries)
+  topDealsByValue: [
+    { rank: 1, customer: "RetailGiant", deal: "Digital Commerce Platform", value: 150000, stage: "Proposal" },
+    { rank: 2, customer: "HealthCare Pro", deal: "Patient Engagement Platform Expansion", value: 125000, stage: "Proposal" },
+    { rank: 3, customer: "TechSolutions", deal: "Developer Platform Integration", value: 87500, stage: "Negotiation" },
+    { rank: 4, customer: "Acme Corp", deal: "Manufacturing Operations Platform", value: 75000, stage: "Closed Won" },
+    { rank: 5, customer: "Global Media", deal: "Content Analytics Platform", value: 50000, stage: "Qualification" }
+  ],
+
+  // Deals closest to closing (for "closest to closing" query)
+  closestToClosing: [
+    { customer: "Acme Corp", deal: "Manufacturing Operations Platform", stage: "Closed Won", probability: 100, closeDate: "2024-11-20", status: "Won" },
+    { customer: "TechSolutions", deal: "Developer Platform Integration", stage: "Negotiation", probability: 60, closeDate: "2024-12-10", daysToClose: 10 },
+    { customer: "HealthCare Pro", deal: "Patient Engagement Platform Expansion", stage: "Proposal", probability: 50, closeDate: "2024-12-15", daysToClose: 15 },
+    { customer: "RetailGiant", deal: "Digital Commerce Platform", stage: "Proposal", probability: 65, closeDate: "2024-12-20", daysToClose: 20 }
+  ],
+
+  // Risk analysis (for "top risks" query)
+  pipelineRisks: [
+    {
+      rank: 1,
+      risk: "MegaLogistics Renewal At Risk",
+      customer: "MegaLogistics",
+      deal: "Platform Renewal 2025",
+      value: 95000,
+      severity: "Critical",
+      description: "Leadership change has put $95K renewal at risk. New VP re-evaluating all vendors. Contract expires Jan 31.",
+      mitigation: "Schedule urgent executive meeting, prepare value delivery report, consider retention discount"
+    },
+    {
+      rank: 2,
+      risk: "HealthCare Pro Budget Concerns",
+      customer: "HealthCare Pro",
+      deal: "Patient Engagement Platform Expansion",
+      value: 125000,
+      severity: "High",
+      description: "CFO pushing back on budget due to cost-cutting. Champion (Dr. Foster) is strong but needs ammunition.",
+      mitigation: "Prepare detailed ROI analysis, gather patient retention metrics from current deployment, offer phased implementation"
+    },
+    {
+      rank: 3,
+      risk: "TechSolutions Competitive Pressure",
+      customer: "TechSolutions",
+      deal: "Developer Platform Integration",
+      value: 87500,
+      severity: "Medium",
+      description: "Active evaluation against two competitors. Price is main objection. Decision expected Dec 10.",
+      mitigation: "Focus on TCO not price, demonstrate superior features, offer multi-year discount"
+    }
+  ]
+};
 
 export default opportunities;

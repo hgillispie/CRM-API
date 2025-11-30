@@ -1,336 +1,160 @@
 # Mock CRM API Server
 
-A comprehensive mock CRM API server providing rich data for chatbot integration. This API simulates a full-featured Customer Relationship Management system with customers, contacts, opportunities, activities, and more.
+A mock CRM API designed specifically for chatbot integration. Provides rich, realistic data that enables natural conversational queries about customers, deals, pipeline, and sales activities.
 
 ## Quick Start
 
 ```bash
-# Install dependencies
 npm install
-
-# Start the server
 npm start
-
-# Or run in development mode with auto-reload
-npm run dev
 ```
 
-The server runs on `http://localhost:3001` by default.
+Server runs on `http://localhost:3001`
 
-## API Overview
+## Sample Data
 
-| Endpoint | Description |
-|----------|-------------|
-| `/api/customers` | Customer/Account management |
-| `/api/contacts` | Contact management |
-| `/api/opportunities` | Sales opportunities & pipeline |
-| `/api/activities` | Activity/interaction history |
-| `/api/products` | Product catalog |
-| `/api/users` | Sales team & user management |
-| `/api/tasks` | Task management |
-| `/api/notes` | Account notes & intelligence |
-| `/api/search` | Global & semantic search |
-| `/api/stats` | Statistics & analytics |
+The API includes realistic mock data:
 
-## Data Model
+| Entity | Count | Examples |
+|--------|-------|----------|
+| Customers | 8 | RetailGiant, HealthCare Pro, Acme Corp, TechSolutions, Global Media |
+| Deals | 5 active | Total pipeline: ~$487.5K, Avg deal: ~$97.5K |
+| Contacts | 12 | Decision makers, champions, influencers |
+| Activities | 12 | Meetings, calls, demos, emails |
+| Tasks | 10 | Follow-ups, preparations, urgent items |
 
-### Customers (15 accounts)
-Rich customer data including:
-- Company information (name, industry, sector, type)
-- Financial data (annual revenue, lifetime value, credit limit)
-- Health metrics (health score, risk level)
-- Relationship data (account owner, contract renewal date)
-- Tags and categorization
+## Chatbot Query Examples
 
-### Contacts (25 contacts)
-Contact details including:
-- Personal information (name, title, department)
-- Communication preferences
-- Decision-making authority (decision maker, influencer flags)
-- Relationship notes
+The API is optimized to answer these types of questions:
 
-### Opportunities (21 deals)
-Sales pipeline data including:
-- Deal information (name, amount, stage, probability)
-- Timeline (close date, created date)
-- Forecast category (Commit, Best Case, Pipeline)
-- Products included
-- Competitor information
+### Pipeline & Deals
+- **"What's our current deal pipeline status?"** → `GET /api/pipeline`
+- **"Summarize our top customers by deal value"** → `GET /api/customers/top`
+- **"Which deals are closest to closing?"** → `GET /api/deals/closing-soon`
+- **"What's our average deal size this quarter?"** → `GET /api/metrics/deal-size`
 
-### Activities (25 interactions)
-Activity history including:
-- Type (meeting, call, email, demo)
-- Outcome tracking
-- Attendees and notes
-- Next steps
+### Specific Deal Queries
+- **"Tell me more about the HealthCare Pro deal"** → `GET /api/deals/healthcare-pro`
+- **"How should I approach the TechSolutions negotiation?"** → `GET /api/deals/techsolutions/negotiation`
 
-### Products (20 products)
-Product catalog including:
-- Categories and pricing
-- Features and target markets
-- Dependencies and requirements
+### Metrics & Analysis
+- **"What's the reason for the conversion rate decline?"** → `GET /api/metrics/conversion`
+- **"What are the top 3 risks in our current pipeline?"** → `GET /api/pipeline/risks`
+- **"Which customer is most at risk?"** → `GET /api/customers/at-risk`
 
-### Users (11 team members)
-Sales team data including:
-- Role and territory
-- Quota and attainment
-- Performance metrics
-
-### Tasks (20 tasks)
-Task management including:
-- Priority and status
-- Due dates and assignments
-- Related entities
-
-### Notes (12 notes)
-Strategic notes including:
-- Account intelligence
-- Relationship notes
-- Deal strategies
+### Tasks & Priorities
+- **"Which customer should I focus on first today?"** → `GET /api/tasks/priorities`
+- **"What customer follow-ups do I have this week?"** → `GET /api/tasks/this-week`
+- **"Generate an activity summary for today"** → `GET /api/activities/summary`
 
 ## API Endpoints
 
-### Customers
+### Chatbot-Optimized Endpoints
 
-```
-GET /api/customers
-GET /api/customers/:id
-GET /api/customers/:id/contacts
-GET /api/customers/:id/opportunities
-GET /api/customers/:id/activities
-GET /api/customers/:id/notes
-GET /api/customers/:id/tasks
-GET /api/customers/:id/summary
-```
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/pipeline` | Current deal pipeline status with totals and breakdown |
+| `GET /api/customers/top` | Top customers ranked by deal value |
+| `GET /api/deals/closing-soon` | Deals ordered by close probability and date |
+| `GET /api/metrics/conversion` | Conversion rate analysis with recommendations |
+| `GET /api/pipeline/risks` | Top 3 pipeline risks with mitigation strategies |
+| `GET /api/tasks/priorities` | Today's prioritized task list with reasoning |
+| `GET /api/tasks/this-week` | This week's customer follow-ups |
+| `GET /api/activities/summary` | Activity summary and engagement metrics |
+| `GET /api/metrics/deal-size` | Average deal size calculation |
+| `GET /api/customers/at-risk` | At-risk customers and deals |
+| `GET /api/deals/:customerName` | Detailed deal info (e.g., `/api/deals/healthcare-pro`) |
+| `GET /api/deals/:customerName/negotiation` | Negotiation strategy and advice |
 
-**Query Parameters:**
-- `industry` - Filter by industry
-- `status` - Filter by status (Active, At Risk, Inactive)
-- `type` - Filter by type (Enterprise, Mid-Market, Small Business)
-- `owner` - Filter by account owner
-- `minRevenue`, `maxRevenue` - Revenue range filter
-- `riskLevel` - Filter by risk level (Low, Medium, High)
-- `minHealthScore`, `maxHealthScore` - Health score filter
-- `tags` - Filter by tags (comma-separated)
-- `sort`, `order` - Sorting
-- `limit`, `offset` - Pagination
+### Standard CRUD Endpoints
 
-### Contacts
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/customers` | List all customers |
+| `GET /api/customers/:id` | Get customer with related data |
+| `GET /api/contacts` | List contacts |
+| `GET /api/opportunities` | List opportunities |
+| `GET /api/activities` | List activities |
+| `GET /api/tasks` | List tasks |
+| `GET /api/notes` | List strategic notes |
+| `GET /api/products` | List products |
+| `GET /api/users` | List sales team |
+| `GET /api/stats` | Statistics overview |
+| `GET /api/search?q=` | Search across entities |
 
-```
-GET /api/contacts
-GET /api/contacts/:id
-GET /api/contacts/role/decision-makers
-GET /api/contacts/by-customer/:customerId
-```
+## Example Responses
 
-**Query Parameters:**
-- `customerId` - Filter by customer
-- `decisionMaker` - Filter decision makers (true/false)
-- `influencer` - Filter influencers (true/false)
-- `department` - Filter by department
-- `title` - Filter by title
-
-### Opportunities
-
-```
-GET /api/opportunities
-GET /api/opportunities/:id
-GET /api/opportunities/pipeline
-GET /api/opportunities/forecast
-GET /api/opportunities/by-owner/:owner
-GET /api/opportunities/closing/soon
-```
-
-**Query Parameters:**
-- `stage` - Filter by stage (Discovery, Qualification, Proposal, Negotiation, Closed Won, Closed Lost, Stalled)
-- `owner` - Filter by owner
-- `customerId` - Filter by customer
-- `minAmount`, `maxAmount` - Amount range
-- `forecastCategory` - Filter by forecast (Commit, Best Case, Pipeline)
-- `type` - Filter by type (New Business, Expansion, Renewal, Upsell, Cross-sell)
-- `closeAfter`, `closeBefore` - Close date range
-- `minProbability` - Minimum probability
-
-### Activities
-
-```
-GET /api/activities
-GET /api/activities/:id
-GET /api/activities/recent
-GET /api/activities/summary
-```
-
-**Query Parameters:**
-- `type` - Filter by type (meeting, call, email, demo)
-- `customerId` - Filter by customer
-- `contactId` - Filter by contact
-- `opportunityId` - Filter by opportunity
-- `outcome` - Filter by outcome (Positive, Neutral, Negative, Action Required)
-- `owner` - Filter by owner
-- `startDate`, `endDate` - Date range
-
-### Products
-
-```
-GET /api/products
-GET /api/products/:id
-GET /api/products/catalog
-```
-
-**Query Parameters:**
-- `category` - Filter by category
-- `type` - Filter by type (License, Add-on, Service)
-- `targetMarket` - Filter by target market
-- `minPrice`, `maxPrice` - Price range
-
-### Users
-
-```
-GET /api/users
-GET /api/users/:id
-GET /api/users/:id/performance
-GET /api/users/sales-team
-```
-
-**Query Parameters:**
-- `role` - Filter by role
-- `department` - Filter by department
-- `region` - Filter by region
-
-### Tasks
-
-```
-GET /api/tasks
-GET /api/tasks/:id
-GET /api/tasks/due-soon
-GET /api/tasks/overdue
-GET /api/tasks/by-assignee/:assigneeId
-```
-
-**Query Parameters:**
-- `status` - Filter by status (Pending, In Progress, Completed)
-- `priority` - Filter by priority (High, Medium, Low)
-- `assignee` - Filter by assignee ID
-- `customerId` - Filter by customer
-- `type` - Filter by type
-- `dueBefore`, `dueAfter` - Due date range
-
-### Notes
-
-```
-GET /api/notes
-GET /api/notes/:id
-GET /api/notes/pinned
-```
-
-**Query Parameters:**
-- `customerId` - Filter by customer
-- `opportunityId` - Filter by opportunity
-- `contactId` - Filter by contact
-- `author` - Filter by author
-- `pinned` - Filter pinned notes (true)
-- `tags` - Filter by tags (comma-separated)
-
-### Search
-
-```
-GET /api/search?q=query           # Global search
-GET /api/search/customers?q=query  # Customer search
-GET /api/search/contacts?q=query   # Contact search
-GET /api/search/opportunities?q=query # Opportunity search
-GET /api/search/semantic?q=query   # Semantic search for chatbot queries
-```
-
-The semantic search endpoint understands natural language queries like:
-- "at risk customers"
-- "largest opportunities"
-- "opportunities closing soon"
-- "decision makers"
-- "upcoming renewals"
-- "sales forecast"
-- "recent activities"
-- "overdue tasks"
-
-### Statistics
-
-```
-GET /api/stats/overview     # CRM overview statistics
-GET /api/stats/pipeline     # Pipeline statistics by stage/owner
-GET /api/stats/performance  # Team performance metrics
-GET /api/stats/renewals     # Upcoming renewal analysis
-GET /api/stats/industry     # Statistics by industry
-GET /api/stats/health       # Customer health overview
-```
-
-## Example Requests
-
-### Get all enterprise customers
-```bash
-curl "http://localhost:3001/api/customers?type=Enterprise"
-```
-
-### Get opportunities closing in next 30 days
-```bash
-curl "http://localhost:3001/api/opportunities/closing/soon?days=30"
-```
-
-### Search for customers in healthcare
-```bash
-curl "http://localhost:3001/api/search/customers?q=healthcare"
-```
-
-### Get pipeline summary
-```bash
-curl "http://localhost:3001/api/opportunities/pipeline"
-```
-
-### Get customer summary with all related data
-```bash
-curl "http://localhost:3001/api/customers/cust_001/summary"
-```
-
-### Semantic search for chatbot
-```bash
-curl "http://localhost:3001/api/search/semantic?q=at%20risk%20customers"
-curl "http://localhost:3001/api/search/semantic?q=largest%20opportunities"
-curl "http://localhost:3001/api/search/semantic?q=upcoming%20renewals"
-```
-
-## Response Format
-
-All list endpoints return paginated responses:
-
+### Pipeline Status
 ```json
 {
-  "data": [...],
-  "total": 15,
-  "limit": 10,
-  "offset": 0,
-  "hasMore": true
+  "summary": {
+    "totalDeals": 5,
+    "totalValue": 487500,
+    "averageDealSize": 97500,
+    "weightedPipeline": 300000
+  },
+  "deals": [
+    { "rank": 1, "customer": "RetailGiant", "value": 150000, "stage": "Proposal" },
+    { "rank": 2, "customer": "HealthCare Pro", "value": 125000, "stage": "Proposal" },
+    ...
+  ]
 }
 ```
 
-Many endpoints include enriched data with related entity names and summary statistics.
+### Conversion Rate
+```json
+{
+  "currentRate": 28,
+  "previousRate": 33,
+  "change": -5,
+  "trend": "declining",
+  "factors": [
+    "Increased competition in mid-market segment",
+    "Longer decision cycles due to economic uncertainty"
+  ],
+  "recommendations": [
+    "Improve early-stage qualification",
+    "Develop competitive battle cards"
+  ]
+}
+```
+
+### Today's Priorities
+```json
+{
+  "todaysPriorities": [
+    {
+      "rank": 1,
+      "customer": "MegaLogistics",
+      "task": "Retention meeting - AT RISK",
+      "reason": "$95K renewal at risk, competitors approaching new VP"
+    },
+    {
+      "rank": 2,
+      "customer": "TechSolutions", 
+      "task": "Pricing follow-up",
+      "reason": "In negotiation, decision expected Dec 10"
+    }
+  ]
+}
+```
+
+## Data Scenarios
+
+The mock data includes specific scenarios for realistic chatbot interactions:
+
+1. **RetailGiant** - Largest deal ($150K), strong champion, technical concerns to address
+2. **HealthCare Pro** - High value deal ($125K) with budget objections from CFO
+3. **Acme Corp** - Recently closed ($75K), expansion potential
+4. **TechSolutions** - In negotiation ($87.5K), price-sensitive, competitive evaluation
+5. **Global Media** - Early stage ($50K), need access to decision maker
+6. **MegaLogistics** - AT RISK renewal ($95K), lost champion, urgent attention needed
 
 ## Configuration
 
-| Environment Variable | Default | Description |
-|---------------------|---------|-------------|
+| Variable | Default | Description |
+|----------|---------|-------------|
 | `PORT` | 3001 | Server port |
-
-## Use with Chatbot
-
-This API is designed to be used with a chatbot that can query CRM data. The `/api/search/semantic` endpoint provides intent detection and returns relevant data based on natural language queries.
-
-Example chatbot queries the API can handle:
-- "Show me all at-risk customers"
-- "What are our largest open opportunities?"
-- "Which deals are closing this month?"
-- "Who are the decision makers at Apex Manufacturing?"
-- "What's our current sales forecast?"
-- "Show me recent customer activities"
-- "What tasks are overdue?"
 
 ## License
 

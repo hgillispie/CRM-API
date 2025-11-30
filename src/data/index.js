@@ -1,102 +1,84 @@
 // Central data export for mock CRM API
 import { customers } from './customers.js';
 import { contacts } from './contacts.js';
-import { opportunities } from './opportunities.js';
-import { activities } from './activities.js';
+import { opportunities, pipelineMetrics } from './opportunities.js';
+import { activities, activitySummary } from './activities.js';
 import { products } from './products.js';
-import { users } from './users.js';
-import { tasks } from './tasks.js';
+import { users, teamMetrics } from './users.js';
+import { tasks, tasksSummary } from './tasks.js';
 import { notes } from './notes.js';
 
 export { customers } from './customers.js';
 export { contacts } from './contacts.js';
-export { opportunities } from './opportunities.js';
-export { activities } from './activities.js';
+export { opportunities, pipelineMetrics } from './opportunities.js';
+export { activities, activitySummary } from './activities.js';
 export { products } from './products.js';
-export { users } from './users.js';
-export { tasks } from './tasks.js';
+export { users, teamMetrics } from './users.js';
+export { tasks, tasksSummary } from './tasks.js';
 export { notes } from './notes.js';
 
-// Aggregated statistics for dashboard/summary queries
+// Aggregated statistics for dashboard/chatbot queries
 export const statistics = {
-  overview: {
-    totalCustomers: 15,
-    activeCustomers: 13,
-    totalContacts: 25,
-    totalOpportunities: 21,
-    openOpportunities: 17,
-    closedWonOpportunities: 3,
-    closedLostOpportunities: 1,
-    totalPipelineValue: 18755000,
-    closedWonValue: 3620000,
-    avgDealSize: 980000,
-    avgSalesCycle: 92,
-    winRate: 0.39
+  // Pipeline overview (matches chatbot query expectations)
+  pipeline: {
+    totalDeals: 5,
+    totalValue: 487500,
+    averageDealSize: 97500,
+    weightedValue: 300000,
+    byStage: {
+      qualification: { count: 1, value: 50000 },
+      proposal: { count: 2, value: 275000 },
+      negotiation: { count: 1, value: 87500 },
+      closedWon: { count: 1, value: 75000 }
+    },
+    topDealsByValue: pipelineMetrics.topDealsByValue,
+    closestToClosing: pipelineMetrics.closestToClosing
   },
-  pipelineByStage: {
-    discovery: { count: 4, value: 1605000 },
-    qualification: { count: 2, value: 1630000 },
-    proposal: { count: 5, value: 7400000 },
-    negotiation: { count: 4, value: 7200000 },
-    closedWon: { count: 3, value: 3620000 },
-    closedLost: { count: 1, value: 125000 },
-    stalled: { count: 1, value: 145000 }
+  
+  // Conversion metrics (for "conversion rate" queries)
+  conversion: {
+    currentRate: 28,
+    previousRate: 33,
+    change: -5,
+    trend: "declining",
+    analysis: "Conversion rate declined 5% this quarter due to increased competition and longer decision cycles.",
+    recommendations: [
+      "Improve early-stage qualification",
+      "Develop competitive battle cards", 
+      "Accelerate proof-of-value demos",
+      "Consider flexible pricing"
+    ]
   },
-  pipelineByOwner: {
-    "Sarah Mitchell": { count: 6, value: 5800000 },
-    "Michael Chen": { count: 5, value: 1150000 },
-    "Jennifer Rodriguez": { count: 5, value: 7755000 },
-    "David Thompson": { count: 3, value: 4215000 }
+  
+  // Risk analysis (for "top risks" queries)
+  pipelineRisks: pipelineMetrics.pipelineRisks,
+  
+  // Customer summary
+  customers: {
+    total: customers.length,
+    active: customers.filter(c => c.status === 'Active').length,
+    atRisk: customers.filter(c => c.status === 'At Risk' || c.riskLevel === 'High').length
   },
-  customersByIndustry: {
-    "Manufacturing": 2,
-    "Technology": 2,
-    "Transportation & Logistics": 2,
-    "Healthcare": 2,
-    "Consumer Goods": 1,
-    "Financial Services": 1,
-    "Education": 1,
-    "Energy": 1,
-    "Construction": 1,
-    "Retail": 1,
-    "Hospitality": 1
-  },
-  customersByStatus: {
-    active: 13,
-    atRisk: 1,
-    inactive: 1
-  },
-  upcomingRenewals: [
-    { customerId: "cust_012", name: "Mountain View Hospitality", renewalDate: "2024-12-31", value: 650000, risk: "High" },
-    { customerId: "cust_002", name: "TechVenture Solutions", renewalDate: "2025-01-15", value: 175000, risk: "Low" },
-    { customerId: "cust_009", name: "BuildRight Construction", renewalDate: "2025-01-31", value: 1200000, risk: "High" },
-    { customerId: "cust_006", name: "Quantum Financial Services", renewalDate: "2025-02-28", value: 8900000, risk: "Low" },
-    { customerId: "cust_004", name: "Riverside Medical Center", renewalDate: "2025-03-15", value: 3200000, risk: "Medium" }
-  ],
-  tasksSummary: {
-    total: 20,
-    pending: 10,
-    inProgress: 6,
-    completed: 4,
-    overdue: 0,
-    dueThisWeek: 8,
-    highPriority: 7
-  },
-  recentActivity: {
-    last24Hours: 8,
-    last7Days: 25,
-    last30Days: 45
-  }
+  
+  // Tasks summary  
+  tasks: tasksSummary,
+  
+  // Activity summary
+  activities: activitySummary
 };
 
 export default {
   customers,
   contacts,
   opportunities,
+  pipelineMetrics,
   activities,
+  activitySummary,
   products,
   users,
+  teamMetrics,
   tasks,
+  tasksSummary,
   notes,
   statistics
 };
